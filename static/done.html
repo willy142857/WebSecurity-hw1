@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <title>Done</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h2 class="text-center my-4">File Uploaded</h2>
+                <h5 class="text-center"><a href="/view.cgi">
+                    You will be redirected to a new page in 5 seconds</a></h5>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    setTimeout(function () {
+        window.location = "/view.cgi";
+    }, 5000);   
+</script>
+
+</html>
