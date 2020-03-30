@@ -101,12 +101,12 @@ private:
     {
         auto self(shared_from_this());
         asio::async_read(socket_, buf, asio::transfer_exactly(length), 
-            [this, self](const system::error_code& ec, std::size_t s) {
+            [this, self, length](const system::error_code& ec, std::size_t s) {
                 std::istream stream{&buf};
                 std::stringstream ss;
                 ss << stream.rdbuf();
                 payload = ss.str();
-                
+
                 if (!ec)
                     doWrite(55688);
             });
@@ -130,7 +130,8 @@ private:
                     fmt::print(fmt::fg(fmt::color::light_sea_green),"Connection: {}:{}\n", REMOTE_ADDR, REMOTE_PORT);
                     fmt::print(fmt::fg(fmt::color::azure), "Method: {}\n", REQUEST_METHOD);
                     fmt::print(fmt::fg(fmt::color::azure), "Uri: {}\n", REQUEST_URI);
-
+                    if (REQUEST_METHOD == "POST")
+                        fmt::print(fmt::fg(fmt::color::azure), "Content-Length: {}\n", headers["Content-Length"]);
                     setEnv();
                     response();
 
@@ -187,6 +188,7 @@ private:
             else if (SCRIPT_NAME == "./view.cgi" || SCRIPT_NAME == "./insert.cgi")
                 if (execlp(SCRIPT_NAME.c_str(), SCRIPT_NAME.c_str(), NULL) < 0)
                     std::cout << "Content-type:text/html\r\n\r\n<h1>Not Found</h1>";
+            exit(0);
         }
     }
 };
