@@ -5,6 +5,7 @@
 #include <fmt/color.h>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
+#include "./3rd-party/base64/base64.h"
 
 using namespace std;
 namespace fs = experimental::filesystem;
@@ -17,7 +18,12 @@ int main(int argc, char *argv[])
         cin.read(buf, sizeof(buf));
         rawData.append(buf, cin.gcount());
     }
-
+    if (!Base64::Decode(rawData, &rawData)) {
+        fmt::print(stderr, fmt::fg(fmt::color::red) | fmt::emphasis::bold,
+                   "[insert.cgi] Base64 decode error\n");
+        return 1;
+    }
+        
     if (auto expected = stoul(getenv("CONTENT_LENGTH")), actual = rawData.size() * sizeof(char);
         expected != actual) {
         fmt::print(stderr, fmt::fg(fmt::color::red) | fmt::emphasis::bold,

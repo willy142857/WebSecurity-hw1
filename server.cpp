@@ -12,6 +12,7 @@
 #include <fmt/ostream.h>
 #include <cstdlib>
 #include "3rd-party/fmt/include/color.h"
+#include "./3rd-party/base64/base64.h"
 
 #include "./utility.cpp"
 
@@ -105,7 +106,7 @@ private:
                 std::istream stream{&buf};
                 std::stringstream ss;
                 ss << stream.rdbuf();
-                payload = ss.str();
+                Base64::Encode(ss.str(), &payload);
 
                 if (!ec)
                     doWrite(55688);
