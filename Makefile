@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=c++1z -lstdc++fs -Wall -lfmt -lboost_system -O3
+CXXFLAGS=-std=c++1z -lstdc++fs -Wall -pthread -lfmt -lboost_system -O3
 CXX_INCLUDE_DIRS:=/usr/local/include
 CXX_INCLUDE_PARAMS=$(addprefix -I, $(CXX_INCLUDE_DIRS))
 CXX_LIB_DIRS=/usr/local/lib
